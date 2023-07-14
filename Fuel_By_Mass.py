@@ -7,11 +7,14 @@ with open("Day_1_Input", 'r') as input:
 def launch_fuel(puzzle_input: int):
     fuel: int = 0
     for mass in puzzle_input:
-        fuel += (mass // 3) - 2  # // -> Divides and rounds down
-        fuel_remain = fuel
-        while fuel_remain > 0:
-            fuel_remain = (fuel_remain // 3) - 2
-            fuel += fuel_remain
-    print(fuel) # Prints total fuel needed for launch
-    
+        fuel += fuel_calc(mass) -mass
+    print(fuel) # Prints total fuel needed
+
+def fuel_calc(mass: int):
+    new_mass = (mass // 3) - 2
+    if new_mass < 0:
+        return mass
+    else:
+        return fuel_calc(new_mass) + mass
+
 launch_fuel(puzzle_input)
